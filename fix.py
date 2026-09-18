@@ -1,0 +1,53 @@
+import os
+
+filepath = 'lib/screens/profile_screen.dart'
+with open(filepath, 'r', encoding='utf-8') as f:
+    lines = f.readlines()
+
+# Find where the portfolio sections start (after Kaïro Pro discovery or "Générer Lettre")
+# The first section was "À propos" or "Centres d'intérêt" or "Compétences"
+start_idx = -1
+end_idx = -1
+
+for i, line in enumerate(lines):
+    if "if (user.bio.isNotEmpty)" in line:
+        start_idx = i - 1 # include the SizedBox
+        break
+
+for i, line in enumerate(lines):
+    if "class _EditProfileDialog" in line:
+        # We need to backtrack to the closing braces of ProfileScreen
+        # Usually it's:
+        #       ],
+        #     ),
+        #   ),
+        # );
+        # } }
+        end_idx = i
+        break
+
+if start_idx != -1 and end_idx != -1:
+    # We need to construct the closing braces properly
+    # The start_idx is inside a Column's children
+    closing = """
+                        const SizedBox(height: 24),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+"""
+    new_lines = lines[:start_idx] + [closing] + lines[end_idx:]
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.writelines(new_lines)
+    print("Fixed profile_screen.dart")
+else:
+    print(f"Could not find indices: start={start_idx}, end={end_idx}")
