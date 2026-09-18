@@ -155,6 +155,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      const SizedBox(height: 20), // Padding pour la safe area / encoche
                       // Logo
                       Center(
                         child: Container(
@@ -308,13 +309,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    'G',
-                                    style: TextStyle(
-                                      color: Colors.blue.shade600,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 20,
-                                    ),
+                                  Image.asset(
+                                    'assets/images/google_logo.png',
+                                    height: 24,
                                   ),
                                   const SizedBox(width: 12),
                                   const Text(

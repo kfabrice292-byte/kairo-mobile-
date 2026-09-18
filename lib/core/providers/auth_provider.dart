@@ -469,6 +469,11 @@ class AuthProvider extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   Future<void> logout() async {
+    try {
+      await GoogleSignIn().signOut();
+    } catch (e) {
+      debugPrint("Google SignOut Error: $e");
+    }
     await FirebaseAuth.instance.signOut();
     notifyListeners();
   }
