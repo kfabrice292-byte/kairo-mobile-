@@ -24,11 +24,24 @@ import 'core/services/knowledge_service.dart';
 
 
 
+import 'package:flutter/services.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   
   await KnowledgeService.init();
+
+  // Configure system UI overlays for edge-to-edge look
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // Top bar transparent
+      statusBarIconBrightness: Brightness.dark, // Dark text/icons
+      systemNavigationBarColor: Colors.transparent, // Bottom bar transparent
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
 
   // Enable Firestore offline persistence
   FirebaseFirestore.instance.settings = const Settings(
