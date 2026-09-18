@@ -167,7 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                               ],
                             ),
                             child: Image.asset(
-                              'assets/images/logo.png',
+                              'assets/images/favicon.png',
                               height: 48,
                               errorBuilder: (context, error, stackTrace) => const Icon(
                                 Icons.school,
